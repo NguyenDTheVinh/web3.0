@@ -49,9 +49,9 @@ const Welcome = () => {
                   Upload <br /> garden status
                </h1>
                <p className='text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base'>
-                  Connect your wallet to perform transactions.
+                  Connect your wallet to upload information.
                </p>
-               {!currentAccount && (
+               {/* {!currentAccount && (
                   <button
                      type='button'
                      onClick={connectWallet}
@@ -70,11 +70,11 @@ const Welcome = () => {
                      <p className='text-base font-semibold'>Change Account</p>
                   </button>
                )
-               }
+               } */}
 
 
                <div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
-                  <div className={`rounded-tl-2xl ${commonStyles}`}>
+                  {/* <div className={`rounded-tl-2xl ${commonStyles}`}>
                      Garden
                   </div>
                   <div className={`sm:rounded-none ${commonStyles} rounded-tr-2xl`}>
@@ -91,33 +91,62 @@ const Welcome = () => {
                   </div>
                   <div className={`rounded-br-2xl ${commonStyles}`}>
                      Blockchain
-                  </div>
+                  </div> */}
                </div>
             </div>
 
             <div className='flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10'>
-               <div className='p-3 justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card white-glassmorphism'>
-                  <div className='flex justify-between flex-col w-full h-full'>
-                     <div className='flex justify-between items-start'>
+
+               <div className='justify-end items-start flex rounded-xl sm:w-full w-full'>
+
+                  <div className='p-3 justify-end items-start flex-col rounded-xl h-30 sm:w-[70%] w-full my-5 eth-card white-glassmorphism'>
+                     <div className='flex justify-between flex-col w-full h-full'>
+                        {/* <div className='flex justify-between items-start'>
                         <div className='w-10 h-10 rounded-full border-2 border-white flex justify-center items-center'>
                            <SiEthereum className='static justify-center items-center' fontSize={21} color='#fff' />
                         </div>
                         <BsInfoCircle className='static ml-[100px]' fontSize={17} color='#fff' />
-                     </div>
-                     <div>
-                        <p className='text-white font-light text-sm'>
-                           {shortenAddress(currentAccount)}
-                        </p>
-                        <p className='text-white font-semibold text-lg mt-1'>
-                           Ethereum
-                        </p>
+                     </div> */}
+                        <div>
+                           <p className='text-white font-semibold text-lg mt-1'>
+                              Ethereum
+                           </p>
+                           <p className='text-white font-light text-sm'>
+                              {shortenAddress(currentAccount)}
+                           </p>
+                        </div>
                      </div>
                   </div>
+
+                  <div>
+                     {!currentAccount && (
+                        <button
+                           type='button'
+                           onClick={connectWallet}
+                           className='h-full flex flex-row justify-center items-center my-5 ml-[5%] bg-[#2952e3] p-3 rounded-xl cursor-pointer hover:bg-[#2546bd]'
+                        >
+                           <p className='text-white text-base font-semibold'>Connect Wallet</p>
+                        </button>
+                     )
+                     }
+                     {currentAccount && (
+                        <button
+                           type='button'
+                           onClick={changeAccount}
+                           className='h-full flex flex-row justify-center items-center my-5 ml-[5%] border-[2px] border-[#fff] p-3 rounded-xl cursor-pointer text-white hover:bg-[#fff] hover:text-[#000]'
+                        >
+                           <p className='text-base font-semibold'>Change Account</p>
+                        </button>
+                     )
+                     }
+                  </div>
+
                </div>
+
 
                <div className='p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism'>
                   <Input placeholder='Address To' name='addressTo' type='text' handleChange={handleChange} />
-                  <Input placeholder='Amount (ETH)' name='amount' type='number' handleChange={handleChange} />
+                  {/* <Input placeholder='Amount (ETH)' name='amount' type='number' handleChange={handleChange} /> */}
                   <Input placeholder='Action' name='action' type='text' handleChange={handleChange} />
                   <Input placeholder='Plant type' name='planttype' type='text' handleChange={handleChange} />
                   <Input placeholder='Harvest' name='harvest' type='text' handleChange={handleChange} />
@@ -134,7 +163,7 @@ const Welcome = () => {
                         onClick={handleSubmit}
                         className='text-white w-full mt-2 border-[2px] p-2 border-[#fff] rounded-full cursor-pointer hover:bg-[#fff] hover:text-[#000]'
                      >
-                        Send Now
+                        UPLOAD
                      </button>
                   )}
 

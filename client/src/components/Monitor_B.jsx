@@ -6,11 +6,10 @@ import { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Link } from 'react-router-dom';
 
+var x, y;
+const optionsDate = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 
-var x, y; // x-axis of the graph
-const optionsDate = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }; // Set format date
-
-const Monitor = () => {
+const MonitorB = () => {
    const [returnedData, setReturnedData] = useState('');
    const [temp, setTemp] = useState(0);
    const [humi, setHumi] = useState(0);
@@ -31,15 +30,15 @@ const Monitor = () => {
 
    const [displayedBlock, setDisplayBlock] = useState('sm:text-lg text-[15px] font-serif font-black hidden');
 
-   const [styleSensorBox, setStyleSensorBox] = useState('4xl:h-auto 3xl:h-auto 2xl:h-auto md:h-auto sm:h-auto temHumLight-largeScreen h-[160px] flex border-[#8AFD22] border-4 rounded-3xl p-3 bg-custom sm:mb-4 mt-[80px] sm:mt-3 shadow-square');
+   const [styleSensorBox, setStyleSensorBox] = useState('4xl:h-auto 3xl:h-auto 2xl:h-auto md:h-auto sm:h-auto temHumLight-largeScreen h-[160px] flex border-[#8AFD22] border-4 rounded-3xl p-3 bg-custom sm:mb-4 mt-[60px] sm:mt-3 shadow-square');
 
    var [fontSizeGraph, setFontSizeGraph] = useState(18);
 
-   let [area, setArea] = useState('A');
+   let [area, setArea] = useState('B');
 
    // const [graphData, setGraphData] = useState(arrayData);
    let data;
-   useEffect(() => { // Get and set specific data
+   useEffect(() => {
       var arrayData1 = [];
       const db = getDatabase();
       const starCountRef = ref(db, area);
@@ -76,7 +75,7 @@ const Monitor = () => {
             });
          }
          // Make condition for MODE button
-         if ((data.Pump == 2) | (data.Pump == 3)) { // 1/15/2023
+         if ((data.Pump == 2) | (data.Pump == 3)) { // 1/15/2023 
             setMode(() => {
                setBackgroundModeButton('mode-btn shadow-button sm:text-[30px] text-[10px] on');
                return ('AUTO')
@@ -88,7 +87,7 @@ const Monitor = () => {
             });
          }
          // Make condition for Relay button
-         if ((data.Pump == 1) | (data.Pump == 3)) { //1/15/2023
+         if ((data.Pump == 1) | (data.Pump == 3)) { // 1/16/2023
             setRelay(() => {
                setBackgroundRelayButton('mode-btn shadow-button sm:text-[30px] text-[10px] on');
                return ('ON')
@@ -102,7 +101,7 @@ const Monitor = () => {
       });
 
       // const dbRef = ref(db, '/GraphOne/');
-      var graphText = 'GraphOne';
+      var graphText = 'GraphTwo';
       // if (area == 'A') {
       //    graphText = 'GraphOne';
       // } else {
@@ -133,7 +132,7 @@ const Monitor = () => {
    //console.log({TLLL:returnedData});
    // console.log({arrayData:arrayData});
    // console.log(mode);
-   function handleChangeMode() { // 1/15/2023
+   function handleChangeMode() { // 1/16/2023
       const db = getDatabase();
       const dbChild = ref(db, area);
       if (mode == 'AUTO') {
@@ -143,7 +142,7 @@ const Monitor = () => {
       }
    }
 
-   function handleCheck() { //1/15/2023
+   function handleCheck() { // 1/16/2023
       const db = getDatabase();
       const dbChild = ref(db, area);
       if ((returnedData.Pump == 0) || (returnedData.Pump == 1)) {
@@ -202,18 +201,18 @@ const Monitor = () => {
       setStyleSensorBox('4xl:h-auto 3xl:h-auto 2xl:h-auto md:h-auto sm:h-auto temHumLight-largeScreen h-[160px] flex border-[#8AFD22] border-4 rounded-3xl p-3 bg-custom sm:mb-4 mt-[200px] sm:mt-[200px] shadow-square ');
    }
 
-   function handleSetStartDatePlantType () {
+   function handleSetStartDatePlantType() {
       const db = getDatabase();
-      const HistoryRef = ref(db, 'HistoryList1');
+      const HistoryRef = ref(db, 'HistoryList2');
       const ChildRef = ref(db, area);
       const newPostRef = push(HistoryRef);
-      const year  = sendedStartDay.substring(0, 4);
+      const year = sendedStartDay.substring(0, 4);
       const month = sendedStartDay.substring(5, 7);
       const date = sendedStartDay.substring(8);
       const myDate = `${date}/${month}/${year}`;
       console.log({ myDate: myDate });
       set(newPostRef, {
-         daystart: myDate.toString(), 
+         daystart: myDate.toString(),
          daystop: '',
          planttype: sendedPlantType,
       });
@@ -231,7 +230,7 @@ const Monitor = () => {
 
    function handleHarvest() {
       const db = getDatabase();
-      const HistoryRef = ref(db, 'HistoryList1');
+      const HistoryRef = ref(db, 'HistoryList2');
       const ChildRef = ref(db, area);
       const newPostRef = push(HistoryRef);
       const date = new Date();
@@ -256,8 +255,8 @@ const Monitor = () => {
                   // const selectedArea = e.target.value;
                   // setArea(selectedArea);
                   // location.reload();
-                  if (e.target.value != 'A') {
-                     location = '/owner/dashboard/area/b';
+                  if (e.target.value != 'B') {
+                     location = '/owner/dashboard/area/a';
                   }
 
                }}>
@@ -294,9 +293,9 @@ const Monitor = () => {
                   <form className='mt-3 w-auto'>
                      <lable className='underline decoration-2'>Set New Start Day:</lable>
                      <input type="date" className='border-none outline-none bg-transparent sm:shadow-style shadow-style-small ml-3 sm:text-[15px] text-[10px]' onChange={e => { setSendedStartDay(e.target.value) }} />
-                     <br/>
+                     <br />
                      <lable className='underline decoration-2'>Set Plant type:</lable>
-                     <input type="text" className='rounded-md outline-none sm:shadow-style shadow-style-small ml-3 sm:text-[15px] text-[10px]' required onChange={e => { setSendedPlantType(e.target.value) }}/>
+                     <input type="text" className='rounded-md outline-none sm:shadow-style shadow-style-small ml-3 sm:text-[15px] text-[10px]' required onChange={e => { setSendedPlantType(e.target.value) }} />
                   </form>
                </div>
 
@@ -306,20 +305,19 @@ const Monitor = () => {
                      onClick={handleSetStartDatePlantType}
                      className='m-2 sm:w-auto sm:h-auto flex flex-row justify-center items-center bg-[#2952e3] p-3 rounded-full cursor-pointer mode-btn shadow-button sm:text-[15px] text-[10px]'
                   >
-                     <p className='sm:w-auto sm:h-auto w-[10px] h-[10px] flex flex-row justify-center items-center text-white text-base font-semibold sm:text-[15px] text-[10px]'>OK</p>
+                     <p className='sm:w-auto sm:h-auto w-[10px] h-[10px] flex flex-row justify-center items-center text-white text-base font-semibold'>OK</p>
                   </button>
                   <button
                      type='button'
                      onClick={handleCloseSetStartDatePlantType}
                      className='m-2 sm:w-auto sm:h-auto flex flex-row justify-center items-center bg-[#2952e3] p-3 rounded-full cursor-pointer mode-btn shadow-button sm:text-[15px] text-[10px]'
                   >
-                     <p className='sm:w-auto sm:h-auto w-[10px] h-[10px] flex flex-row justify-center items-center text-white text-base font-semibold sm:text-[15px] text-[10px]'>CLOSE</p>
+                     <p className='sm:w-auto sm:h-auto w-[10px] h-[10px] flex flex-row justify-center items-center text-white text-base font-semibold'>CLOSE</p>
                   </button>
                </div>
             </div>
          </div>
 
-         {/*Make parameters*/}
          <div className={styleSensorBox}>
             <div className="h-auto w-2/6 flex justify-center">
                <div className='sm:w-[160px] sm:h-[160px] w-[60px] h-[60px]'>
@@ -329,7 +327,7 @@ const Monitor = () => {
                </div>
             </div>
 
-            <div className="h-auto w-2/6 flex justify-center">
+            <div className="h-auto w-2/6 flex justify-center items-center">
                <div className='sm:w-auto sm:h-auto w-[60px] h-[60px]'>
                   <p className="sm:text-lg text-[10px] font-serif font-black text-center">Humidity</p>
                   <hr className=' mt-2 mb-2' />
@@ -359,12 +357,12 @@ const Monitor = () => {
                <div className='sm:w-[160px] sm:h-[160px] w-[60px] h-[60px]'>
                   <p className="sm:text-lg text-[10px] font-serif font-black text-center">Light</p>
                   <hr className=' mt-2 mb-2' />
-                  <p className='w-full h-full sm:text-5xl text-[20px] flex justify-center items-center sm:shadow-style shadow-style-small'>{light.toFixed(2)} <br/> <p className='text-white'>lx</p></p>
+                  <p className='w-full h-full sm:text-5xl text-[20px] flex justify-center items-center sm:shadow-style shadow-style-small'>{light.toFixed(2)} <br /> <p className='text-white'>lx</p></p>
 
                </div>
             </div>
          </div>
-
+         
          {/*Make moisture circle*/}
          <div className="sm:h-80 h-[200px] flex sm:mt-3 flex justify-between sm:mb-4 mb-0">
             <div className="sm:h-auto h-[200px] w-[49%] flex-wrap border-[#8AFD22] border-4 rounded-3xl p-3 items-center justify-between bg-custom shadow-square">
@@ -394,7 +392,7 @@ const Monitor = () => {
                   />
                </div>
             </div>
-            
+
             {/*Make control button*/}
             <div className="sm:h-auto h-[200px] w-[49%] border-[#8AFD22] border-4 rounded-3xl p-3 bg-custom shadow-square">
                <div className='w-full h-1/3 flex justify-center items-center'>
@@ -462,4 +460,4 @@ const Monitor = () => {
    );
 }
 
-export default Monitor;
+export default MonitorB;

@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { TransactionContext } from '../context/TransactionContext';
 
-import dummyData from '../utils/dummyData';
 import { shortenAddress } from '../utils/shortenAddress';
-import useFetch from '../hooks/useFetch';
+
 
 const TransactionCard = ({ addressTo, addressFrom, amount, timestamp, action, planttype, harvest, disease, healthstatus, note, url }) => {
    
@@ -26,9 +25,9 @@ const TransactionCard = ({ addressTo, addressFrom, amount, timestamp, action, pl
                      To: {shortenAddress(addressTo)}
                   </p>
                </a>
-               <p className='text-white text-base'>
+               {/* <p className='text-white text-base'>
                   Amount: {amount} ETH
-               </p>
+               </p> */}
                {action && (
                   <>
                      <br />

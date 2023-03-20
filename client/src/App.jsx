@@ -1,5 +1,6 @@
 import { Navbar, Welcome } from "./components";
 import Dashboard from "./Dashboard";
+import DashboardB from "./Dashboard_B";
 import Sendapp from "./Sendapp";
 import Retrieve from "./Retrieve";
 import Traceability from "./components/Traceability";
@@ -16,9 +17,10 @@ const App = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/home" element={<Homepage />} />
         <Route path="/owner/upload" element={<Sendapp />} />
-        <Route path="/owner/dashboard" element={<Dashboard />} />
+        <Route path="/owner/dashboard/area/a" element={<Dashboard />} />
+        <Route path="/owner/dashboard/area/b" element={<DashboardB />} />
         <Route path="/owner/retrieve" element={<Retrieve />} />
-        <Route path="/traceability/product/salad" element={<Traceabilitypage />} />
+        <Route path="/traceability/product/ButterheadLettuce" element={<Traceabilitypage />} />
       </Routes>
     </div>
   )

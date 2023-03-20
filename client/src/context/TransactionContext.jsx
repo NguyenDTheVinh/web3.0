@@ -15,13 +15,14 @@ const getEthereumContract = () => {
    const signer = provider.getSigner();
    const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
 
+   console.log(transactionContract);
    return transactionContract;
 }
 
 export const TransactionProvider = ({ children }) => {
 
    const [ currentAccount, setCurrentAccount ] = useState('');
-   const [ formData, setFormData ] = useState({ addressTo: '', amount: '', action: '', planttype: '', harvest: '', disease: '', healthstatus: '', note: '', });
+   const [ formData, setFormData ] = useState({ addressTo: '', amount: '0.0000', action: '', planttype: '', harvest: '', disease: '', healthstatus: '', note: '', });
    const [ isLoading, setIsLoading ] = useState(false);
    const [ transactionCount, setTransactionCount ] = useState(localStorage.getItem('transactionCount'));
    const [ transactions, setTransactions ] = useState([]);
@@ -63,7 +64,7 @@ export const TransactionProvider = ({ children }) => {
 
    const checkIfWalletConnected = async () => {
       try {
-         if(!ethereum) return alert("Please install Metamask or Close this alert for traceability");
+         if(!ethereum) return alert("Please install Metamask or Click 'Ok' for traceability");
 
          const accounts = await ethereum.request({ method: 'eth_accounts' });
          console.log(accounts);
@@ -124,7 +125,6 @@ export const TransactionProvider = ({ children }) => {
             params: [{
                from: currentAccount,
                to: addressTo,
-               // gas: '0x5208', // 21000 GWEI (! GWEI is a sub unit of ETH)
                gas: '0x5208', // 21000 GWEI (! GWEI is a sub unit of ETH)
                value: parseAmount._hex, // 0.00001
             }]
@@ -136,9 +136,9 @@ export const TransactionProvider = ({ children }) => {
          setHash(transactionHash.hash)
          console.log(`Loading - ${transactionHash.hash}`);
          const db = getDatabase();
-         const traceabilityRef = ref(db, 'Salad/');
+         const traceabilityRef = ref(db, `${formData.planttype}/`);
          const newPostRef = push(traceabilityRef);
-         console.log(traceabilityRef);
+         console.log({traceabilityRef:traceabilityRef});
          set(newPostRef, {
             TransactionHash: transactionHash.hash, 
             addressFrom: currentAccount,

@@ -20,18 +20,18 @@ const Navbar = () => {
    const [toggleMenu, setToggleMenu] = useState(false);
 
    return (
-      <nav className='bg-custom-2 w-full flex md:justify-center justufy-between items-center p-4 fixed'>
-         <div className='md:flex-[0.5] flex-initial justify-center items-center'>
-            <img src={dinhgardenLogo} alt="logo" className='w-32 cursor-pointer' />
+      <nav className='bg-custom-2 w-full flex md:justify-center justufy-between items-center fixed pr-9'>
+         <div className='md:flex-[2/3] w-full flex-initial justify-center items-center'>
+            <img src={dinhgardenLogo} alt="logo" className='w-32 cursor-pointer sm:ml-[50px] ml-[30px]' />
          </div>
          <ul className='text-black md:flex hidden list-none flex-row justify-between item-center flex-initial'>
-            <Link className='ml-[10px] mr-[15px] text-white' to='/owner/dashboard'>Dashboard</Link>
-            <Link to='/owner/upload' className='ml-[15px] mr-[15px] text-white'>Upload</Link>
-            <Link to='/owner/retrieve' className='ml-[15px] text-white'>Traceability</Link>
+            <Link className='h-20 w-[100px] flex justify-center items-center ml-[10px] mr-[15px] text-white hover:bg-[#6ED94E]' to='/owner/dashboard/area/a'>Dashboard</Link>
+            <Link to='/owner/upload' className='h-20 w-[100px] flex justify-center items-center ml-[15px] mr-[15px] text-white hover:bg-[#6ED94E]'>Upload</Link>
+            <Link to='/owner/retrieve' className='h-20 w-[100px] flex justify-center items-center ml-[15px] text-white hover:bg-[#6ED94E]'>Traceability</Link>
          </ul>
          <div className='flex relative'>
             {toggleMenu
-               ? <p/>
+               ? <p />
                : <HiMenuAlt4 fontSize={28} className='text-red md:hidden cursor-pointer fixed -right-0 top-5' onClick={() => setToggleMenu(true)} />
             }
             {toggleMenu && (
@@ -45,7 +45,7 @@ const Navbar = () => {
                      <AiOutlineClose onClick={() => setToggleMenu(false)} />
                   </li>
                   <Link to='/owner/dashboard' className='text-lg my-2 mr-3'>Dashboard</Link>
-                  <Link to='/owner/upload' className='text-lg my-2 mr-3'>Upload</Link>
+                  <Link to='/owner/dashboard/area/a' className='text-lg my-2 mr-3'>Upload</Link>
                   <Link to='/owner/retrieve' className='text-lg my-2 mr-3'>Traceability</Link>
                </ul>
             )}

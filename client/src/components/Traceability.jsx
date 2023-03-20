@@ -94,8 +94,8 @@ const TransactionCard = ({ TransactionHash, addressFrom, addressTo, amount, time
                   </div>
                </div>
                <a href={`https://goerli.etherscan.io/tx/${TransactionHash}`} target='_blank' rel='noopener noreferrer'>
-                  <p className='underline decoration-2 text-white ml-4 text-[13px] sm:text-xl hover:text-sky-400'>
-                     °Verify information on Blockchain network
+                  <p className='text-white ml-4 text-[13px] sm:text-xl hover:text-sky-400 hover:underline hover:decoration-2'>
+                     📃  Verify information on Blockchain network
                   </p>
                </a>
             </div>
@@ -118,7 +118,7 @@ const Traceability = () => {
 
    useEffect(() => {
       const db = getDatabase();
-      const recentPostsRef = query(ref(db, 'Salad/'));
+      const recentPostsRef = query(ref(db, 'Butterhead Lettuce/'));
       onValue(recentPostsRef, (snapshot) => {
          snapshot.forEach((childSnapshot) => {
             const childKey = childSnapshot.key;
